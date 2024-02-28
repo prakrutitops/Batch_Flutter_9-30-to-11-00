@@ -1,0 +1,44 @@
+Function:
+
+
+function create
+function call
+
+1) Inbuilt Function
+2) User defined Function
+
+1)With Para With Return type
+2)With Para Without Return type
+3)With Return type without para
+4)without return type without para
+
+
+add(int a,int b)
+{
+	return a+b;
+}
+
+a()
+{
+
+}
+
+write a program which count the length of given string
+
+-> You can not use any function
+-> you can not use loop
+-> you can not use conditional statement or operator
+-> you can not declare any variables here
+
+o/p: tops4
+
+"%d",strlen("")
+
+
+
+
+
+
+
+
+
