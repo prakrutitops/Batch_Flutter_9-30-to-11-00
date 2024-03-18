@@ -1,0 +1,47 @@
+DQL:Select
+
+1)
+Scalar Functions
+UCASE->Select UCASE(colname) from tablename
+LCASE
+MID->Select MID(colname,1,3) from tablename
+LENGTH
+ROUND
+
+
+
+
+2)
+Agreegate Functions
+MAX->SELECT AVG(pprice) FROM products
+MIN->
+SUM->
+AVG->SELECT AVG(pprice) FROM products
+COUNT->
+FIRST->SELECT pname FROM products LIMIT 1;
+LAST->SELECT pname FROM products ORDER by pname DESC LIMIT 1;
+
+
+
+Joins:
+Table1 Join Table2
+
+
+Key ->
+Primary Key -> remove duplicate entry-> didn't accept null value->you can use only one time in one table
+Unique key-> Uniquely identify data->accept null value-> you can use in one table multiple times
+Foreign key(INDEX)->pass the refrence
+
+
+JOINS Types:
+
+1)INNER JOIN(JOIN)
+2)LEFT JOIN
+3)RIGHT JOIN
+4)FULL JOIN->
+SELECT * FROM location LEFT JOIN emp ON location.id = emp.id
+UNION
+SELECT * FROM location RIGHT JOIN emp ON location.id = emp.id
+
+
+
