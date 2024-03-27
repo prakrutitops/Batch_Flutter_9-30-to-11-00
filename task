@@ -1,0 +1,118 @@
+import 'package:flutter/material.dart';
+
+class MyAlert1 extends StatefulWidget
+{
+  const MyAlert1({super.key});
+
+  @override
+  State<MyAlert1> createState() => _MyAlert1State();
+}
+
+class _MyAlert1State extends State<MyAlert1> {
+
+  TextEditingController name = TextEditingController();
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return Scaffold(
+      appBar: AppBar(title: Text("Alert Example"),),
+      body:
+      Column
+        (
+
+            children:
+            [
+
+                ElevatedButton(onPressed: ()
+                {
+
+                  showAlertDialog(context);
+
+                }, child: Text("Simple Alert")),
+
+              ElevatedButton(onPressed: ()
+              {
+
+                textalert(context);
+
+              }, child: Text("Text Alert"))
+
+
+            ],
+
+        ) ,);
+  }
+
+  void showAlertDialog(BuildContext context)
+  {
+
+    Widget okButton = ElevatedButton
+      (
+      child: Text("OK"),
+      onPressed: ()
+      {
+        Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog
+        (
+          title: Text("Simple Alert Message"),
+          content: Text("This is an alert message"),
+          actions:
+          [
+            okButton
+          ],
+        );
+    showDialog
+      (
+        context: context,
+        builder: (BuildContext context)
+        {
+          return alert;
+        },
+    );
+
+
+
+  }
+
+  void textalert(BuildContext context)
+  {
+
+    Widget okButton = ElevatedButton
+      (
+      child: Text("OK"),
+      onPressed: ()
+      {
+        Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog
+      (
+      title: Text("Simple Alert Message"),
+      content: TextFormField(
+        controller:name,
+        decoration: InputDecoration(hintText: "Enter Your Name"),
+          ),
+      actions:
+      [
+        okButton
+      ],
+    );
+    showDialog
+      (
+      context: context,
+      builder: (BuildContext context)
+      {
+        return alert;
+      },
+    );
+
+
+
+
+  }
+}
