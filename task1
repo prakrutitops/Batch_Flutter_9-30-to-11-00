@@ -1,0 +1,27 @@
+1)
+Form with validation:
+
+Firstname
+Lastname
+Email
+Hobbies->checkbox
+Gender->radiobutton
+Password->hidden
+Confirm Password->hidden
+
+Sign up -> Button
+
+Also Create Login Form->sharedprefrence
+
+Design
+---------------------------------------------------------------------------------------------------------------------------
+2)
+Create Splash Screen after that open the page which can check if internet is working then Next Page will be open or not
+in that page you have to Show Bottom Navigation which display Listview 
+
+Bottomnavigation option -> 
+
+Android -> if i will click on android topics are shows in listview
+Java
+Php
+
