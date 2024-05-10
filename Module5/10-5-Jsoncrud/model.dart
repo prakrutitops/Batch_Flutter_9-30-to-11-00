@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'details.dart';
 
 class Model extends StatelessWidget
 {
@@ -19,15 +22,20 @@ class Model extends StatelessWidget
                 title:
                 Column(children:
                 [
+
                   Text(list[i]["fname"],style: TextStyle(fontWeight: FontWeight.bold),),
                   Text(list[i]["lname"]),
                   Text(list[i]["email"]),
+
                 ],),
+
                 onTap: ()
                 {
-
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => Details(list:list,index:i)));
                 },
-              );
+            );
         });
   }
+
+
 }
