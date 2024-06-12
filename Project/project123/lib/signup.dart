@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project123/login.dart';
 import 'package:http/http.dart' as http;
 
-class SignupScreen extends StatefulWidget {
+class SignupScreen extends StatefulWidget
+{
   const SignupScreen({Key? key}) : super(key: key);
 
   @override
@@ -19,7 +20,7 @@ class _SignupState extends State<SignupScreen>
   String? _confirmPassword;
   bool _isMale = false;
   bool _isFemale = false;
-  //List<String> _hobbies = ['Cricket', 'Hockey', 'Tennis', 'Reading'];
+  List<String> _hobbies = ['Cricket', 'Hockey', 'Tennis', 'Reading'];
   Map<String, bool> _selectedHobbies = {};
   List<String> _cities = ['Rajkot', 'Botad', 'Ahmadabad', 'Vadodara', 'Surat'];
   String? _selectedCity;
@@ -29,10 +30,11 @@ class _SignupState extends State<SignupScreen>
   @override
   void initState()
   {
-    super.initState();
-    // for (String hobby in _hobbies) {
-    //   _selectedHobbies[hobby] = false;
-    // }
+    //super.initState();
+    for (String hobby in _hobbies)
+    {
+      _selectedHobbies[hobby] = false;
+    }
   }
 
   @override
@@ -145,86 +147,86 @@ class _SignupState extends State<SignupScreen>
                     },
                   ),
                   SizedBox(height: 16.0),
-                  // Text('Hobbies', style: TextStyle(fontWeight: FontWeight.bold)),
-                  // Column(
-                  //   // children: _hobbies.map((hobby) {
-                  //   //   return CheckboxListTile(
-                  //   //     title: Text(hobby),
-                  //   //     value: _selectedHobbies[hobby],
-                  //   //     onChanged: (value) {
-                  //   //       setState(() {
-                  //   //         _selectedHobbies[hobby] = value!;
-                  //   //       });
-                  //   //     },
-                  //   //     activeColor: Colors.greenAccent[70],
-                  //   //   );
-                  //   // }).toList(),
-                  // ),
-                  // SizedBox(height: 16.0),
-                  // Text('Gender', style: TextStyle(fontWeight: FontWeight.bold)),
-                  // Row(
-                  //   children:
-                  //   [
-                  //     Expanded(
-                  //       child: ListTile(
-                  //         title: const Text('Male', style: TextStyle(fontWeight: FontWeight.bold)),
-                  //         leading: Radio<bool>(
-                  //           value: true,
-                  //           groupValue: _isMale,
-                  //           onChanged: (value) {
-                  //             setState(() {
-                  //               _isMale = value!;
-                  //               _isFemale = !value;
-                  //             });
-                  //           },
-                  //           activeColor: Colors.greenAccent[70],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: ListTile(
-                  //         title: const Text('Female', style: TextStyle(fontWeight: FontWeight.bold)),
-                  //         leading: Radio<bool>(
-                  //           value: true,
-                  //           groupValue: _isFemale,
-                  //           onChanged: (value) {
-                  //             setState(() {
-                  //               _isFemale = value!;
-                  //               _isMale = !value;
-                  //             });
-                  //           },
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  // DropdownButtonFormField<String>(
-                  //   decoration: InputDecoration(
-                  //       labelText: 'Select City',
-                  //       hintText: 'Please select a city',
-                  //       border: OutlineInputBorder(),
-                  //       filled: true,
-                  //       fillColor: Colors.greenAccent[70]
-                  //   ),
-                  //   items: _cities.map((String city) {
-                  //     return DropdownMenuItem<String>(
-                  //       value: city,
-                  //       child: Text(city),
-                  //     );
-                  //   }).toList(),
-                  //   onChanged: (newValue) {
-                  //     setState(() {
-                  //       _selectedCity = newValue;
-                  //     });
-                  //   },
-                  //   validator: (value) {
-                  //     if (value == null) {
-                  //       return 'Please select a city';
-                  //     }
-                  //     return null;
-                  //   },
-                  // ),
-                  // SizedBox(height: 18.0),
+                  Text('Hobbies', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Column(
+                    children: _hobbies.map((hobby) {
+                      return CheckboxListTile(
+                        title: Text(hobby),
+                        value: _selectedHobbies[hobby],
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedHobbies[hobby] = value!;
+                          });
+                        },
+                        activeColor: Colors.greenAccent[70],
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(height: 16.0),
+                  Text('Gender', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Row(
+                    children:
+                    [
+                      Expanded(
+                        child: ListTile(
+                          title: const Text('Male', style: TextStyle(fontWeight: FontWeight.bold)),
+                          leading: Radio<bool>(
+                            value: true,
+                            groupValue: _isMale,
+                            onChanged: (value) {
+                              setState(() {
+                                _isMale = value!;
+                                _isFemale = !value;
+                              });
+                            },
+                            activeColor: Colors.greenAccent[70],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          title: const Text('Female', style: TextStyle(fontWeight: FontWeight.bold)),
+                          leading: Radio<bool>(
+                            value: true,
+                            groupValue: _isFemale,
+                            onChanged: (value) {
+                              setState(() {
+                                _isFemale = value!;
+                                _isMale = !value;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                        labelText: 'Select City',
+                        hintText: 'Please select a city',
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        fillColor: Colors.greenAccent[70]
+                    ),
+                    items: _cities.map((String city) {
+                      return DropdownMenuItem<String>(
+                        value: city,
+                        child: Text(city),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        _selectedCity = newValue;
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select a city';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 18.0),
                   TextFormField(
                     decoration: InputDecoration(
                         labelText: 'Password',
@@ -274,6 +276,7 @@ class _SignupState extends State<SignupScreen>
                       {
                         print("clicked");
                         _submitForm();
+                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginScreen()));
                       },
                       child: Text('Sign Up', style: TextStyle(fontWeight: FontWeight.bold)),
                       style: ElevatedButton.styleFrom
@@ -286,12 +289,12 @@ class _SignupState extends State<SignupScreen>
                   Center(
                     child: ElevatedButton(
                       onPressed:()
-                        {
-                          Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginScreen()));
+                      {
+                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginScreen()));
 
-                        }, child: Text("Log in"),
-                      ),
+                      }, child: Text("Log in"),
                     ),
+                  ),
                   //),
                 ],
               ),
@@ -308,22 +311,22 @@ class _SignupState extends State<SignupScreen>
     {
       _formKey.currentState!.save();
 
-      // print('First Name: $_firstName');
-      // print('Last Name: $_lastName');
-      // print('Email: $_email');
-      // print('Mobile Number: $_mobilenumber');
-      // List<String> selectedHobbies = [];
-      // _selectedHobbies.forEach((key, value)
-      // {
-      //   if (value)
-      //   {
-      //     selectedHobbies.add(key);
-      //   }
-      // });
-      // print('Hobbies: $selectedHobbies');
-      // print('City: $_selectedCity');
-      // print('Gender: ${_isMale ? 'Male' : 'Female'}');
-      // print('Password: $_password');
+      print('First Name: $_firstName');
+      print('Last Name: $_lastName');
+      print('Email: $_email');
+      print('Mobile Number: $_mobilenumber');
+      List<String> selectedHobbies = [];
+      _selectedHobbies.forEach((key, value)
+      {
+        if (value)
+        {
+          selectedHobbies.add(key);
+        }
+      });
+      print('Hobbies: $selectedHobbies');
+      print('City: $_selectedCity');
+      print('Gender: ${_isMale ? 'Male' : 'Female'}');
+      print('Password: $_password');
 
       insertdata();
 
@@ -335,15 +338,15 @@ class _SignupState extends State<SignupScreen>
   {
     http.post(Uri.parse("https://topstech8.000webhostapp.com/Morning_Batch/API/signup.php"),body:
     {
-      "fname":_firstName,
-      "lname":_lastName,
-      "email":_email,
-      // "hobbies":"test",
-      // "gender":"Male",
-      // "city":_cities,
-      "mobile":_mobilenumber,
-      "password":_password,
-      "identifier":"USER"
+      "fname":_firstName.toString(),
+      "lname":_lastName.toString(),
+      "email":_email.toString(),
+      "hobbies":_selectedHobbies.toString(),
+      "city":_selectedCity.toString(),
+      "gender":_isMale ? 'Male' : 'Female'.toString(),
+      "mobile":_mobilenumber.toString(),
+      "password":_password.toString(),
+
 
 
     });
