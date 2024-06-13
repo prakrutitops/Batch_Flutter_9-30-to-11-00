@@ -1,0 +1,5 @@
+Create a One Register Form With Sqflite database ..
+make sure all validations will follow properly after that user can login
+if credentials are correct then user can login succesfully otherwise not .. after login
+user can add product details like product name,product image and product price.. same things should be display in listview in next page
+ 
