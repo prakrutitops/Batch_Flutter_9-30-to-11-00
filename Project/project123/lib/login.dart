@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen>
       appBar: AppBar
         (
           title: Text('Login Form', style: TextStyle(fontWeight: FontWeight.bold)),
-          backgroundColor: Colors.red[100],
+          backgroundColor: Colors.grey,
         ),
       body: Center
         (
