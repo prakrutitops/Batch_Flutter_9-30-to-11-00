@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:project123/login.dart';
 import 'package:http/http.dart' as http;
 
-class SignupScreen extends StatefulWidget
-{
+import 'mycolor.dart';
+
+class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
 
   @override
   State<SignupScreen> createState() => _SignupState();
 }
 
-class _SignupState extends State<SignupScreen>
-{
+class _SignupState extends State<SignupScreen> {
   String? _firstName;
   String? _lastName;
   String? _email;
@@ -28,33 +28,27 @@ class _SignupState extends State<SignupScreen>
   final _formKey = GlobalKey<FormState>();
 
   @override
-  void initState()
-  {
+  void initState() {
     //super.initState();
-    for (String hobby in _hobbies)
-    {
+    for (String hobby in _hobbies) {
       _selectedHobbies[hobby] = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold
-      (
+    return Scaffold(
       appBar: AppBar(
         title: Text('Sign Up', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.grey,
+        backgroundColor: appbarcolor,
       ),
-      body: Stack
-        (
-        children:
-        [
+      body: Stack(
+        children: [
           // Positioned.fill(
           //     child: Image.asset( 'assets/a.jpg',fit: BoxFit.cover)
           // ),
 
-          SingleChildScrollView
-            (
+          SingleChildScrollView(
             padding: EdgeInsets.all(16.0),
             child: Form(
               key: _formKey,
@@ -62,16 +56,12 @@ class _SignupState extends State<SignupScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
-                    decoration: InputDecoration
-                      (
+                    decoration: InputDecoration(
                         labelText: 'First Name',
                         hintText: 'Enter first name',
                         border: OutlineInputBorder(),
                         filled: true,
-                        fillColor: Colors.greenAccent[70]
-
-                    ),
-
+                        fillColor: Colors.greenAccent[70]),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your first name';
@@ -90,10 +80,8 @@ class _SignupState extends State<SignupScreen>
                         hintText: 'Enter last name',
                         border: OutlineInputBorder(),
                         filled: true,
-                        fillColor: Colors.greenAccent[70]
-                    ),
-                    validator: (value)
-                    {
+                        fillColor: Colors.greenAccent[70]),
+                    validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your last name';
                       }
@@ -111,8 +99,7 @@ class _SignupState extends State<SignupScreen>
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(Icons.email),
                         filled: true,
-                        fillColor: Colors.greenAccent[70]
-                    ),
+                        fillColor: Colors.greenAccent[70]),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
@@ -147,7 +134,8 @@ class _SignupState extends State<SignupScreen>
                     },
                   ),
                   SizedBox(height: 16.0),
-                  Text('Hobbies', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('Hobbies',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   Column(
                     children: _hobbies.map((hobby) {
                       return CheckboxListTile(
@@ -165,11 +153,11 @@ class _SignupState extends State<SignupScreen>
                   SizedBox(height: 16.0),
                   Text('Gender', style: TextStyle(fontWeight: FontWeight.bold)),
                   Row(
-                    children:
-                    [
+                    children: [
                       Expanded(
                         child: ListTile(
-                          title: const Text('Male', style: TextStyle(fontWeight: FontWeight.bold)),
+                          title: const Text('Male',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                           leading: Radio<bool>(
                             value: true,
                             groupValue: _isMale,
@@ -185,7 +173,8 @@ class _SignupState extends State<SignupScreen>
                       ),
                       Expanded(
                         child: ListTile(
-                          title: const Text('Female', style: TextStyle(fontWeight: FontWeight.bold)),
+                          title: const Text('Female',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                           leading: Radio<bool>(
                             value: true,
                             groupValue: _isFemale,
@@ -206,8 +195,7 @@ class _SignupState extends State<SignupScreen>
                         hintText: 'Please select a city',
                         border: OutlineInputBorder(),
                         filled: true,
-                        fillColor: Colors.greenAccent[70]
-                    ),
+                        fillColor: Colors.greenAccent[70]),
                     items: _cities.map((String city) {
                       return DropdownMenuItem<String>(
                         value: city,
@@ -233,18 +221,15 @@ class _SignupState extends State<SignupScreen>
                         hintText: 'Enter password',
                         border: OutlineInputBorder(),
                         filled: true,
-                        fillColor: Colors.greenAccent[70]
-                    ),
-                    validator: (value)
-                    {
+                        fillColor: Colors.greenAccent[70]),
+                    validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a password';
                       }
-                      _password=value;
+                      _password = value;
                       return null;
                     },
                     obscureText: true,
-
                   ),
                   SizedBox(height: 18.0),
                   TextFormField(
@@ -253,46 +238,51 @@ class _SignupState extends State<SignupScreen>
                         hintText: 'Confirm your password',
                         border: OutlineInputBorder(),
                         filled: true,
-                        fillColor: Colors.greenAccent[70]
-                    ),
+                        fillColor: Colors.greenAccent[70]),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please confirm your password';
                       }
-                      if (value != _password)
-                      {
+                      if (value != _password) {
                         return 'Passwords do not match';
                       }
                       return null;
                     },
                     obscureText: true,
-
                   ),
                   SizedBox(height: 30.0),
                   Center(
-                    child: ElevatedButton
-                      (
-                      onPressed: ()
-                      {
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: buttoncolor,
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10)),
+                      onPressed: () {
                         print("clicked");
                         _submitForm();
-                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginScreen()));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
                       },
-                      child: Text('Sign Up', style: TextStyle(fontWeight: FontWeight.bold)),
-                      style: ElevatedButton.styleFrom
-                        (
-                          padding: EdgeInsets.all(10)
-                      ),
+                      child: Text('Sign Up',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ),
                   SizedBox(height: 16.0),
                   Center(
                     child: ElevatedButton(
-                      onPressed:()
-                      {
-                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginScreen()));
-
-                      }, child: Text("Log in"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: buttoncolor,
+                        foregroundColor: Colors.black,
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      },
+                      child: Text("Log in"),
                     ),
                   ),
                   //),
@@ -305,10 +295,8 @@ class _SignupState extends State<SignupScreen>
     );
   }
 
-  void _submitForm()
-  {
-    if (_formKey.currentState!.validate())
-    {
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
       print('First Name: $_firstName');
@@ -316,10 +304,8 @@ class _SignupState extends State<SignupScreen>
       print('Email: $_email');
       print('Mobile Number: $_mobilenumber');
       List<String> selectedHobbies = [];
-      _selectedHobbies.forEach((key, value)
-      {
-        if (value)
-        {
+      _selectedHobbies.forEach((key, value) {
+        if (value) {
           selectedHobbies.add(key);
         }
       });
@@ -329,27 +315,22 @@ class _SignupState extends State<SignupScreen>
       print('Password: $_password');
 
       insertdata();
-
-
     }
   }
 
-  void insertdata()
-  {
-    http.post(Uri.parse("https://topstech8.000webhostapp.com/Morning_Batch/API/signup.php"),body:
-    {
-      "fname":_firstName.toString(),
-      "lname":_lastName.toString(),
-      "email":_email.toString(),
-      "hobbies":_selectedHobbies.toString(),
-      "city":_selectedCity.toString(),
-      "gender":_isMale ? 'Male' : 'Female'.toString(),
-      "mobile":_mobilenumber.toString(),
-      "password":_password.toString(),
-
-
-
-    });
-
+  void insertdata() {
+    http.post(
+        Uri.parse(
+            "https://topstech8.000webhostapp.com/Morning_Batch/API/signup.php"),
+        body: {
+          "fname": _firstName.toString(),
+          "lname": _lastName.toString(),
+          "email": _email.toString(),
+          "hobbies": _selectedHobbies.toString(),
+          "city": _selectedCity.toString(),
+          "gender": _isMale ? 'Male' : 'Female'.toString(),
+          "mobile": _mobilenumber.toString(),
+          "password": _password.toString(),
+        });
   }
 }

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:project123/mycolor.dart';
 import 'package:share/share.dart';
 
 import 'categoryDB.dart';
@@ -46,7 +47,7 @@ class CategoryPage extends State<Category> {
       appBar: AppBar(
         title: Text("${category_nm}".toUpperCase(),
             style: TextStyle(fontStyle: FontStyle.italic, color: Colors.black)),
-        backgroundColor: Colors.grey,
+        backgroundColor: appbarcolor,
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),

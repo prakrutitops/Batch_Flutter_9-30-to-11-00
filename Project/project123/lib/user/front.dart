@@ -10,25 +10,24 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:project123/user/userdashboard.dart';
 import 'package:share/share.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../login.dart';
-import 'adminhome.dart';
-import 'adminmainupload.dart';
+import 'categoryDB.dart';
+import 'categoryDBModel.dart';
+import 'download.dart';
 
-class AdminDashboardScreen extends StatefulWidget {
+class Front extends StatefulWidget {
   @override
-  AdminDashboardScreenState createState() => AdminDashboardScreenState();
+  FrontPageState createState() => FrontPageState();
 }
 
-class AdminDashboardScreenState extends State<AdminDashboardScreen> {
+class FrontPageState extends State<Front> {
   var size;
 
   int _selectedIndex = 0;
 
   static List<Widget> _widgetOptions = <Widget>[
-    AdminHome(),
-    AdminUpload(),
+    UserDashboardScreen(),
+    Download(),
   ];
 
   @override
@@ -37,7 +36,7 @@ class AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
     return Scaffold(
       // appBar: AppBar(
-      //
+      //   backgroundColor: Colors.grey,
       // ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -50,7 +49,7 @@ class AdminDashboardScreenState extends State<AdminDashboardScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.download),
-            label: ('Upload'),
+            label: ('Download'),
           ),
         ],
         currentIndex: _selectedIndex,
