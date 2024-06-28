@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-late String _myCategory;
+String? _myCategory;
 
 class AdminUpload extends StatefulWidget {
   @override
@@ -17,32 +18,97 @@ class AdminUploadPage extends State<AdminUpload> {
   var size;
 
   var upload_category = TextEditingController();
-  XFile? _imageFile;
-  //late PickedFile _imageFile;
+  File _imageFile = File("");
+  File _categoryimageFile = File("");
   final String uploadUrl =
       'https://topstech8.000webhostapp.com/Morning_Batch/API/upload_category_main_image.php';
   final ImagePicker _picker = ImagePicker();
 
-  void _pickImage() async {
-    try {
-      final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+  //-------------
+
+  //----------------
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
       setState(() {
-        _imageFile = pickedFile;
+        _imageFile = File(pickedFile.path);
       });
-    } catch (e) {
-      print("Image picker error " + e.toString());
     }
-    await uploadImage(
-        _imageFile, uploadUrl + "?data=" + upload_category.text.toString());
   }
 
-  Future<String?> uploadImage(filepath, url) async {
-    var request = http.MultipartRequest('POST', Uri.parse(url));
-    request.files
-        .add(await http.MultipartFile.fromPath('profile_pic', filepath));
-    var res = await request.send();
-    return res.reasonPhrase;
+  Future<void> _uploadData() async {
+    try {
+      // API endpoint
+      var url = Uri.parse(
+          'https://topstech8.000webhostapp.com/Morning_Batch/API/upload_category_main_image.php');
+
+      // Prepare data to be sent
+      var request = http.MultipartRequest('POST', url)
+        ..fields['category_name'] = upload_category.text
+        ..files.add(
+            await http.MultipartFile.fromPath('category_img', _imageFile.path));
+
+      // Send the request
+      var response = await request.send();
+
+      // Check the status code of the response
+      if (response.statusCode == 200) {
+        print('Data uploaded successfully');
+      } else {
+        print('Failed to upload data. Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception while uploading data: $e');
+    }
   }
+
+  Future<void> _categorypickImage() async {
+    final picker2 = ImagePicker();
+    final pickedFile2 = await picker2.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile2 != null) {
+      setState(() {
+        _categoryimageFile = File(pickedFile2.path);
+      });
+    }
+  }
+
+  Future<void> _categoryuploadData() async {
+    try {
+      // API endpoint
+      var url = Uri.parse(
+          'https://topstech8.000webhostapp.com/Morning_Batch/API/subimageinsert.php');
+
+      // Prepare data to be sent
+      var request = http.MultipartRequest('POST', url)
+        ..fields['c_id'] = "1"
+        ..files.add(
+            await http.MultipartFile.fromPath('c_images', _imageFile.path));
+
+      // Send the request
+      var response = await request.send();
+
+      // Check the status code of the response
+      if (response.statusCode == 200) {
+        print('Data uploaded successfully');
+      } else {
+        print('Failed to upload data. Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception while uploading data: $e');
+    }
+  }
+
+  // Future<String?> uploadImage(filepath, url) async {
+  //   var request = http.MultipartRequest('POST', Uri.parse(url));
+  //   request.files
+  //       .add(await http.MultipartFile.fromPath('profile_pic', filepath));
+  //   var res = await request.send();
+  //   return res.reasonPhrase;
+  // }
 
   Future<List> getCategoryName() async {
     var data = await http.get(Uri.parse(
@@ -50,24 +116,22 @@ class AdminUploadPage extends State<AdminUpload> {
     return json.decode(data.body);
   }
 
-  XFile? _categoryImageFile;
-  //final String categoryUploadUrl =
-  //   'https://amisha1299.000webhostapp.com/Ewishes/upload_category_sub_image_insert.php';
+  //final String categoryUploadUrl = 'https://amisha1299.000webhostapp.com/Ewishes/upload_category_sub_image_insert.php';
   final ImagePicker _categoryPicker = ImagePicker();
 
-  void _categoryPickImage() async {
-    try {
-      final pickedFile =
-          await _categoryPicker.pickImage(source: ImageSource.gallery);
-      setState(() {
-        _categoryImageFile = pickedFile;
-      });
-    } catch (e) {
-      print("Image picker error " + e.toString());
-    }
-    // await categoryUploadImage(_categoryImageFile,
-    //  categoryUploadUrl + "?id=" + _myCategory.toString());
-  }
+  // void _categoryPickImage() async {
+  //   try {
+  //     final pickedFile =
+  //         await _categoryPicker.pickImage(source: ImageSource.gallery);
+  //     setState(() {
+  //       _categoryImageFile = pickedFile;
+  //     });
+  //   } catch (e) {
+  //     print("Image picker error " + e.toString());
+  //   }
+  //   // await categoryUploadImage(_categoryImageFile,
+  //   //  categoryUploadUrl + "?id=" + _myCategory.toString());
+  // }
 
   Future<String?> categoryUploadImage(filepath, url) async {
     var request = http.MultipartRequest('POST', Uri.parse(url));
@@ -185,8 +249,8 @@ class AdminUploadPage extends State<AdminUpload> {
                             onPressed: () {
                               if (upload_category.text.isNotEmpty &&
                                   _imageFile != null) {
-                                uploadImage(_imageFile, uploadUrl);
-
+                                //uploadImage(_imageFile, uploadUrl);
+                                _uploadData();
                                 Fluttertoast.showToast(
                                     msg: "Category Added Successfully",
                                     toastLength: Toast.LENGTH_LONG,
@@ -289,7 +353,7 @@ class AdminUploadPage extends State<AdminUpload> {
                                   ),
                                   onPressed: () {
                                     if (_myCategory != null) {
-                                      _categoryPickImage();
+                                      _categorypickImage();
                                     } else {
                                       Fluttertoast.showToast(
                                           msg: "Please Select Category",
@@ -322,7 +386,8 @@ class AdminUploadPage extends State<AdminUpload> {
                           ElevatedButton(
                             onPressed: () {
                               if (_myCategory != null &&
-                                  _categoryImageFile != null) {
+                                  _categoryimageFile != null) {
+                                _categoryuploadData();
                                 Fluttertoast.showToast(
                                     msg: "Images Uploaded Successfully",
                                     toastLength: Toast.LENGTH_LONG,
@@ -334,7 +399,7 @@ class AdminUploadPage extends State<AdminUpload> {
                                       msg: "Please Select Category",
                                       toastLength: Toast.LENGTH_LONG,
                                       timeInSecForIosWeb: 1);
-                                } else if (_categoryImageFile == null) {
+                                } else if (_categoryimageFile == null) {
                                   Fluttertoast.showToast(
                                       msg: "Please Select Images",
                                       toastLength: Toast.LENGTH_LONG,
@@ -383,29 +448,30 @@ class _Items extends State<Items> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      child: DropdownButton(
-        hint: Padding(
-          padding: EdgeInsets.fromLTRB(
-              MediaQuery.of(context).size.width * 14 / 100, 0, 0, 0),
-          child: Text(
-            "Select Category",
-            style: TextStyle(color: Colors.blueGrey),
+        width: double.infinity,
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            hint: Padding(
+              padding: EdgeInsets.fromLTRB(
+                  MediaQuery.of(context).size.width * 14 / 100, 0, 0, 0),
+              child: Text(
+                "Select Category",
+                style: TextStyle(color: Colors.blueGrey),
+              ),
+            ),
+            items: list_.map((item) {
+              return DropdownMenuItem(
+                child: Text(item['category_name']),
+                value: item['id'].toString(),
+              );
+            }).toList(),
+            onChanged: (newVal) {
+              setState(() {
+                _myCategory = newVal!;
+              });
+            },
+            value: _myCategory,
           ),
-        ),
-        items: list_.map((item) {
-          return DropdownMenuItem(
-            child: Text(item['category_name']),
-            value: item['id'].toString(),
-          );
-        }).toList(),
-        onChanged: (newVal) {
-          setState(() {
-            _myCategory = newVal!;
-          });
-        },
-        value: _myCategory,
-      ),
-    );
+        ));
   }
 }
