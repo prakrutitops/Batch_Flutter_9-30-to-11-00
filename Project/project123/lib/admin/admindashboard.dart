@@ -8,13 +8,13 @@ import 'package:http/http.dart' as http;
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:project123/admin/upload.dart';
 import 'package:project123/user/userdashboard.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../login.dart';
 import 'adminhome.dart';
-import 'adminmainupload.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
   @override
